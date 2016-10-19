@@ -167,4 +167,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->client->exportTable($this->output, 'non-existent');
     }
+
+    public function testExportOfNonExistentAdapter()
+    {
+        $this->expectException(InvalidResponseException::class);
+        $this->expectExceptionMessage("The response status code is 417");
+
+        $this->client->setAdapterName('non-existent');
+        $this->client->exportHeader($this->output);
+    }
 }
