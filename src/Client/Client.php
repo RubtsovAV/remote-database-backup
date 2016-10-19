@@ -113,6 +113,7 @@ class Client
 	private function request($action, $data = [])
 	{
 		$response = $this->httpClient->request('POST', $this->uri, [
+			'http_errors' => false,
 		    'form_params' => [
 		        'db' => $this->dbParams,
 		        'action' => $action,
@@ -120,7 +121,7 @@ class Client
 		        'response_mark' => $this->successResponseMark,
 		    ]
 		]);
-
+		
 		$this->assertResponse($response);
 		return $response;
 	}
