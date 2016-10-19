@@ -38,10 +38,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         fclose($this->output);
     }
 
-    private function getResourceFileContent($filename)
+    private function getResourceFilePath($filename)
     {
         $baseDir = 'test/resources/database/mysql/';
-        return file_get_contents($baseDir . $filename);
+        return $baseDir . $filename;
+    }
+
+    private function getResourceFileContent($filename)
+    {
+        
+        return file_get_contents($this->getResourceFilePath($filename));
     }
 
 
@@ -64,6 +70,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->client->setAdapterName('non-existent');
         $this->assertEquals('non-existent', $this->client->getAdapterName());
+    }
+
+    public function testExport()
+    {
+        $expect = shell_exec($this->getResourceFilePath('bin/join.sh'));
+
+        $this->client->export($this->output);
+        rewind($this->output);
+        $result = stream_get_contents($this->output);
+
+        $this->assertTrue($expect == $result, "Export result is not valid");
     }
 
     public function testGetTablesMetadata()
@@ -258,6 +275,4 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
         $client->exportHeader($this->output);
     }
-
-
 }
