@@ -11,6 +11,7 @@ class Client
 
 	private $uri;
 	private $dbParams;
+	private $adapterName;
 	private $httpClient;
 	private $successResponseMark;
 
@@ -25,6 +26,31 @@ class Client
 		]);
 
 		$this->successResponseMark = $this->generateSuccessResponseMark();
+	}
+
+	public function setAdapterName($adapterName)
+	{
+		$this->adapterName = $adapterName;
+	}
+
+	public function getAdapterName()
+	{
+		return $this->adapterName;
+	}
+
+	public function getUri()
+	{
+		return $this->uri;
+	}
+
+	public function getDbParams()
+	{
+		return $this->dbParams;
+	}
+
+	public function getHttpClient()
+	{
+		return $this->httpClient;
 	}
 
 	public function export($output)
@@ -95,26 +121,12 @@ class Client
 		return json_decode((string) $body, true);
 	}
 
-	public function getUri()
-	{
-		return $this->uri;
-	}
-
-	public function getDbParams()
-	{
-		return $this->dbParams;
-	}
-
-	public function getHttpClient()
-	{
-		return $this->httpClient;
-	}
-
 	private function request($action, $data = [])
 	{
 		$response = $this->httpClient->request('POST', $this->uri, [
 			'http_errors' => false,
 		    'form_params' => [
+		    	'adapter' => $this->adapterName,
 		        'db' => $this->dbParams,
 		        'action' => $action,
 		        'data' => $data,
