@@ -121,4 +121,13 @@ class MysqliTest extends \PHPUnit_Framework_TestCase
         $this->expectOutputString($this->getResourceFileContent('sql/footer.sql'));
         $this->exporter->exportFooter();
     }
+
+    public function testExportOfNonExistentTable()
+    {
+        $this->expectException(\mysqli_sql_exception::class);
+        $this->expectExceptionCode(1146);
+        $this->expectExceptionMessage("Table 'rest_database_exporter.non-existent' doesn't exist");
+
+        $this->exporter->exportTable('non-existent');
+    }
 }

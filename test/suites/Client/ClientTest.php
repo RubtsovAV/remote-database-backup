@@ -5,6 +5,7 @@
 namespace RubtsovAV\RestDatabaseExporter\Test\Client;
 
 use RubtsovAV\RestDatabaseExporter\Client\Client;
+use RubtsovAV\RestDatabaseExporter\Client\Exception\InvalidResponseException;
 
 /**
  * @covers RubtsovAV\RestDatabaseExporter\Client\Client
@@ -157,5 +158,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $result = stream_get_contents($this->output);
 
         $this->assertTrue($expect == $result, "Footer is not equals");
+    }
+
+    public function testExportOfNonExistentTable()
+    {
+        $this->expectException(InvalidResponseException::class);
+        $this->expectExceptionMessage("The response status code is 417");
+
+        $this->client->exportTable($this->output, 'non-existent');
     }
 }
