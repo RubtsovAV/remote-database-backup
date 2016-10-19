@@ -4,6 +4,7 @@
  */
 namespace RubtsovAV\RestDatabaseExporter\Test\Client;
 
+use GuzzleHttp\Client as HttpClient;
 use RubtsovAV\RestDatabaseExporter\Client\Client;
 use RubtsovAV\RestDatabaseExporter\Client\Exception\InvalidResponseException;
 
@@ -43,6 +44,27 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         return file_get_contents($baseDir . $filename);
     }
 
+
+    public function testOfMutationMethods()
+    {
+        $this->assertEquals(getenv('SERVER_URI'), $this->client->getUri());
+        $this->assertEquals(
+            [
+                'host' => getenv('DB_HOST'),
+                'port' => getenv('DB_PORT'),
+                'username' => getenv('DB_USERNAME'),
+                'password' => getenv('DB_PASSWORD'),
+                'db_name' => getenv('DB_DATABASE'),
+                'skip-dump-date' => true,
+            ], 
+            $this->client->getDbParams()
+        );
+
+        $this->assertInstanceOf(HttpClient::class, $this->client->getHttpClient());
+
+        $this->client->setAdapterName('non-existent');
+        $this->assertEquals('non-existent', $this->client->getAdapterName());
+    }
 
     public function testGetTablesMetadata()
     {
@@ -176,4 +198,66 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->client->setAdapterName('non-existent');
         $this->client->exportHeader($this->output);
     }
+
+    public function testExportWithHtmlResponse()
+    {
+        $this->expectException(InvalidResponseException::class);
+        $this->expectExceptionMessage('The response have undefined Content-Type: text/html');
+
+        $uri = preg_replace('#/[^/]+$#', '/test.html', getenv('SERVER_URI'));
+        $client = new Client(
+            $uri,
+            [
+                'host' => getenv('DB_HOST'),
+                'port' => getenv('DB_PORT'),
+                'username' => getenv('DB_USERNAME'),
+                'password' => getenv('DB_PASSWORD'),
+                'db_name' => getenv('DB_DATABASE'),
+                'skip-dump-date' => true,
+            ]
+        );
+        $client->exportHeader($this->output);
+    }
+
+    public function testExportWithTxtResponse()
+    {
+        $this->expectException(InvalidResponseException::class);
+        $this->expectExceptionMessage('The response don\'t have SUCCESS_RESPONSE_MARK');
+
+        $uri = preg_replace('#/[^/]+$#', '/test.txt', getenv('SERVER_URI'));
+        $client = new Client(
+            $uri,
+            [
+                'host' => getenv('DB_HOST'),
+                'port' => getenv('DB_PORT'),
+                'username' => getenv('DB_USERNAME'),
+                'password' => getenv('DB_PASSWORD'),
+                'db_name' => getenv('DB_DATABASE'),
+                'skip-dump-date' => true,
+            ]
+        );
+        $client->exportHeader($this->output);
+    }
+
+    public function testExportWithSmallTxtResponse()
+    {
+        $this->expectException(InvalidResponseException::class);
+        $this->expectExceptionMessage('The response don\'t have SUCCESS_RESPONSE_MARK');
+
+        $uri = preg_replace('#/[^/]+$#', '/small.txt', getenv('SERVER_URI'));
+        $client = new Client(
+            $uri,
+            [
+                'host' => getenv('DB_HOST'),
+                'port' => getenv('DB_PORT'),
+                'username' => getenv('DB_USERNAME'),
+                'password' => getenv('DB_PASSWORD'),
+                'db_name' => getenv('DB_DATABASE'),
+                'skip-dump-date' => true,
+            ]
+        );
+        $client->exportHeader($this->output);
+    }
+
+
 }

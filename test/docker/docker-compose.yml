@@ -39,7 +39,7 @@ services:
             - ./../../:/app
         entrypoint: ./vendor/phpunit/phpunit/phpunit
         environment:
-            - SERVER_URI=http://php_7.0-apache/index.php
+            - SERVER_URI=http://php_7.0-apache/server-compiled.php
             - DB_HOST=db
             - DB_PORT=3306
             - DB_DATABASE=rest_database_exporter
@@ -54,7 +54,7 @@ services:
         depends_on:
             - mysql
         volumes:
-            - ./../../server-compiled.php:/var/www/html/index.php
+            - ./../resources/server/public:/var/www/html
 
     php_5.6-apache:
         build: ./php_5.6-apache
@@ -63,7 +63,7 @@ services:
         depends_on:
             - mysql
         volumes:
-            - ./../../server-compiled.php:/var/www/html/index.php
+            - ./../resources/server/public:/var/www/html
 
     php_5.3-apache:
         build: ./php_5.3-apache
@@ -72,7 +72,7 @@ services:
         depends_on:
             - mysql
         volumes:
-            - ./../../server-compiled.php:/var/www/html/index.php
+            - ./../resources/server/public:/var/www/html
 
     php_5.2-apache:
         build: ./php_5.2-apache
@@ -81,7 +81,6 @@ services:
         depends_on:
             - mysql
         volumes:
-            - ./../../server-compiled.php:/var/www/html/index.php
-    
+            - ./../resources/server/public:/var/www/html
 
     

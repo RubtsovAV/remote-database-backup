@@ -31,7 +31,7 @@ mysql_available()
 }
 
 docker_compose down
-docker_compose build
+#docker_compose build
 
 docker_compose up -d mysql
 if ! mysql_available; then 
@@ -53,34 +53,36 @@ echo
 echo "-----------"
 echo "Compile server"
 docker_compose run compiler
+cp "$DIR/../../server-compiled.php" "$DIR/../resources/server/public/server-compiled.php"
+echo copied "$DIR/../../server-compiled.php" to "$DIR/../resources/server/public/server-compiled.php"
 
 echo 
 echo "-----------"
 echo "Test client with compiled server on php_5.2-apache"
 docker_compose up -d php_5.2-apache
 docker_compose run wait php_5.2-apache:80 -t 30
-docker_compose run -e SERVER_URI=http://php_5.2-apache/index.php test --testsuite Client
+docker_compose run -e SERVER_URI=http://php_5.2-apache/server-compiled.php test --testsuite Client
 
 echo 
 echo "-----------"
 echo "Test client with compiled server on php_5.3-apache"
 docker_compose up -d php_5.3-apache
 docker_compose run wait php_5.3-apache:80 -t 30
-docker_compose run -e SERVER_URI=http://php_5.3-apache/index.php test --testsuite Client
+docker_compose run -e SERVER_URI=http://php_5.3-apache/server-compiled.php test --testsuite Client
 
 echo 
 echo "-----------"
 echo "Test client with compiled server on php_5.6-apache"
 docker_compose up -d php_5.6-apache
 docker_compose run wait php_5.6-apache:80 -t 30
-docker_compose run -e SERVER_URI=http://php_5.6-apache/index.php test --testsuite Client
+docker_compose run -e SERVER_URI=http://php_5.6-apache/server-compiled.php test --testsuite Client
 
 echo 
 echo "-----------"
 echo "Test client with compiled server on php_7.0-apache"
 docker_compose up -d php_7.0-apache
 docker_compose run wait php_7.0-apache:80 -t 30
-docker_compose run -e SERVER_URI=http://php_7.0-apache/index.php test --testsuite Client
+docker_compose run -e SERVER_URI=http://php_7.0-apache/server-compiled.php test --testsuite Client
 
 
 docker_compose down

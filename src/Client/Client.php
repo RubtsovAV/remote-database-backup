@@ -148,11 +148,20 @@ class Client
 		}
 
 		$contentType = $response->getHeaderLine('Content-Type');
+		list($contentType, $charset) = explode(';', $contentType, 2);
+		$contentType = trim($contentType);
 		switch ($contentType) {
-			case 'text/plain;charset=UTF-8':
+			case 'text/plain':
 			case 'application/json':
 				$flagLength = strlen($this->successResponseMark);
 				$body = $response->getBody();
+				if ($flagLength > $body->getSize()) {
+					throw new InvalidResponseException(
+						$response,
+						"The response don't have SUCCESS_RESPONSE_MARK"
+					);
+				}
+				
 				$body->seek(-$flagLength, SEEK_END);
 				if ($body->read($flagLength) !== $this->successResponseMark) {
 					throw new InvalidResponseException(
