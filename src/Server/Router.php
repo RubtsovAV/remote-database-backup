@@ -38,11 +38,11 @@ class Router
         if (is_array($response)) {
             header('Content-Type: application/json');
             $response = json_encode($response);
-        } 
+        }
 
         if (isset($requestData['response_mark'])) {
             $response .= $requestData['response_mark'];
-        }        
+        }
         return $response;
     }
 

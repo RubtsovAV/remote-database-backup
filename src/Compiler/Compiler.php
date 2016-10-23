@@ -34,10 +34,10 @@ class Compiler
             RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
         );
         foreach ($iter as $path => $item) {
-            if ($item->isFile() 
-                && $item->getExtension() == 'php' 
+            if ($item->isFile()
+                && $item->getExtension() == 'php'
                 && !in_array($path, $excludePaths)
-            ){
+            ) {
                 $this->files[] = $path;
             }
         }

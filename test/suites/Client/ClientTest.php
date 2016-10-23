@@ -62,7 +62,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'password' => getenv('DB_PASSWORD'),
                 'db_name' => getenv('DB_DATABASE'),
                 'skip-dump-date' => true,
-            ], 
+            ],
             $this->client->getDbParams()
         );
 
@@ -80,7 +80,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         rewind($this->output);
         $result = stream_get_contents($this->output);
 
-        $this->assertTrue($expect == $result, "Export result is not valid");
+        $this->assertTrue($expect == $result, 'Export result is not valid');
     }
 
     public function testGetTablesMetadata()
@@ -146,7 +146,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         rewind($this->output);
         $result = stream_get_contents($this->output);
 
-        $this->assertTrue($expect == $result, "Views is not equals");
+        $this->assertTrue($expect == $result, 'Views is not equals');
     }
 
     public function testExportTriggers()
@@ -156,7 +156,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         rewind($this->output);
         $result = stream_get_contents($this->output);
 
-        $this->assertTrue($expect == $result, "Triggers is not equals");
+        $this->assertTrue($expect == $result, 'Triggers is not equals');
     }
 
     public function testExportRoutines()
@@ -166,7 +166,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         rewind($this->output);
         $result = stream_get_contents($this->output);
 
-        $this->assertTrue($expect == $result, "Routines is not equals");
+        $this->assertTrue($expect == $result, 'Routines is not equals');
     }
 
     public function testExportCreateDatabase()
@@ -176,7 +176,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         rewind($this->output);
         $result = stream_get_contents($this->output);
 
-        $this->assertTrue($expect == $result, "Create database is not equals");
+        $this->assertTrue($expect == $result, 'Create database is not equals');
     }
 
     public function testExportHeader()
@@ -186,7 +186,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         rewind($this->output);
         $result = stream_get_contents($this->output);
 
-        $this->assertTrue($expect == $result, "Header is not equals");
+        $this->assertTrue($expect == $result, 'Header is not equals');
     }
 
     public function testExportFooter()
@@ -196,13 +196,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         rewind($this->output);
         $result = stream_get_contents($this->output);
 
-        $this->assertTrue($expect == $result, "Footer is not equals");
+        $this->assertTrue($expect == $result, 'Footer is not equals');
     }
 
     public function testExportOfNonExistentTable()
     {
         $this->expectException(InvalidResponseException::class);
-        $this->expectExceptionMessage("The response status code is 417");
+        $this->expectExceptionMessage('The response status code is 417');
 
         $this->client->exportTable($this->output, 'non-existent');
     }
@@ -210,7 +210,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testExportOfNonExistentAdapter()
     {
         $this->expectException(InvalidResponseException::class);
-        $this->expectExceptionMessage("The response status code is 417");
+        $this->expectExceptionMessage('The response status code is 417');
 
         $this->client->setAdapterName('non-existent');
         $this->client->exportHeader($this->output);
