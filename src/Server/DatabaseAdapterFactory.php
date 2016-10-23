@@ -1,6 +1,6 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Server;
+namespace RubtsovAV\RemoteDatabaseBackup\Server;
 
 class DatabaseAdapterFactory
 {

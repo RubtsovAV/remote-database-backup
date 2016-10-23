@@ -1,8 +1,8 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Server\Exception\Router;
+namespace RubtsovAV\RemoteDatabaseBackup\Server\Exception\Router;
 
-use RubtsovAV\RestDatabaseExporter\Server\Exception\Exception;
+use RubtsovAV\RemoteDatabaseBackup\Server\Exception\Exception;
 
 class RouterException extends Exception
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Compiler;
+namespace RubtsovAV\RemoteDatabaseBackup\Compiler;
 
-use RubtsovAV\RestDatabaseExporter\Compiler\Transformer\TransformerInterface;
+use RubtsovAV\RemoteDatabaseBackup\Compiler\Transformer\TransformerInterface;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 

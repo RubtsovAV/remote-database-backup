@@ -2,12 +2,12 @@
 /**
  * @license see LICENSE
  */
-namespace RubtsovAV\RestDatabaseExporter\Test\Server\DatabaseAdapter;
+namespace RubtsovAV\RemoteDatabaseBackup\Test\Server\DatabaseAdapter;
 
-use RubtsovAV\RestDatabaseExporter\Server\DatabaseAdapter\Mysqli;
+use RubtsovAV\RemoteDatabaseBackup\Server\DatabaseAdapter\Mysqli;
 
 /**
- * @covers RubtsovAV\RestDatabaseExporter\Server\DatabaseAdapter\Mysqli
+ * @covers RubtsovAV\RemoteDatabaseBackup\Server\DatabaseAdapter\Mysqli
  */
 class MysqliTest extends \PHPUnit_Framework_TestCase
 {

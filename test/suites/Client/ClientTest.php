@@ -2,14 +2,14 @@
 /**
  * @license see LICENSE
  */
-namespace RubtsovAV\RestDatabaseExporter\Test\Client;
+namespace RubtsovAV\RemoteDatabaseBackup\Test\Client;
 
 use GuzzleHttp\Client as HttpClient;
-use RubtsovAV\RestDatabaseExporter\Client\Client;
-use RubtsovAV\RestDatabaseExporter\Client\Exception\InvalidResponseException;
+use RubtsovAV\RemoteDatabaseBackup\Client\Client;
+use RubtsovAV\RemoteDatabaseBackup\Client\Exception\InvalidResponseException;
 
 /**
- * @covers RubtsovAV\RestDatabaseExporter\Client\Client
+ * @covers RubtsovAV\RemoteDatabaseBackup\Client\Client
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {

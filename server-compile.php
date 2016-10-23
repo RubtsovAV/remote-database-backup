@@ -1,6 +1,6 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Compiler;
+namespace RubtsovAV\RemoteDatabaseBackup\Compiler;
 
 $outputFilepath = 'server-compiled.php';
 

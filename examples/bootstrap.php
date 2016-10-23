@@ -2,7 +2,7 @@
 
 require dirname(__FILE__) . '/../vendor/autoload.php';
 
-$exporter = new \RubtsovAV\RestDatabaseExporter\Mysql([
+$exporter = new \RubtsovAV\RemoteDatabaseBackup\Mysql([
     'host' => getenv('DB_HOST'),
     'port' => getenv('DB_PORT'),
     'username' => getenv('DB_USERNAME'),

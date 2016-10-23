@@ -2,12 +2,12 @@
 /**
  * @license see LICENSE
  */
-namespace RubtsovAV\RestDatabaseExporter\Test\Compiler\Transformer;
+namespace RubtsovAV\RemoteDatabaseBackup\Test\Compiler\Transformer;
 
-use RubtsovAV\RestDatabaseExporter\Compiler\Transformer\NamespaceToUnderscore;
+use RubtsovAV\RemoteDatabaseBackup\Compiler\Transformer\NamespaceToUnderscore;
 
 /**
- * @covers RubtsovAV\RestDatabaseExporter\Compiler\Transformer\NamespaceToUnderscore
+ * @covers RubtsovAV\RemoteDatabaseBackup\Compiler\Transformer\NamespaceToUnderscore
  */
 class NamespaceToUnderscoreTest extends \PHPUnit_Framework_TestCase
 {

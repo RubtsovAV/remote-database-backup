@@ -1,5 +1,5 @@
 <?php
-class RubtsovAV_RestDatabaseExporter_Server_Router
+class RubtsovAV_RemoteDatabaseBackup_Server_Router
 {
     public function route($requestData)
     {
@@ -9,7 +9,7 @@ class RubtsovAV_RestDatabaseExporter_Server_Router
             $action = $this->parseAction($requestData);
 
             if (!method_exists($adapter, $action['name'])) {
-                throw new RubtsovAV_RestDatabaseExporter_Server_Exception_Router_NotFoundException();
+                throw new RubtsovAV_RemoteDatabaseBackup_Server_Exception_Router_NotFoundException();
             }
             $response = call_user_func_array(array($adapter, $action['name']), $action['data']);
         } catch (RouterException $ex) {
@@ -50,7 +50,7 @@ class RubtsovAV_RestDatabaseExporter_Server_Router
             $adapterParams = $requestData['db'];
         }
 
-        $adapterFactory = new RubtsovAV_RestDatabaseExporter_Server_DatabaseAdapterFactory();
+        $adapterFactory = new RubtsovAV_RemoteDatabaseBackup_Server_DatabaseAdapterFactory();
         return $adapterFactory->createAdapter($adapterName, $adapterParams);
     }
 
@@ -72,7 +72,7 @@ class RubtsovAV_RestDatabaseExporter_Server_Router
         );
     }
 }
-class RubtsovAV_RestDatabaseExporter_Server_DatabaseAdapterFactory
+class RubtsovAV_RemoteDatabaseBackup_Server_DatabaseAdapterFactory
 {
 	public function createAdapter($name = null, $params = array())
 	{
@@ -89,7 +89,7 @@ class RubtsovAV_RestDatabaseExporter_Server_DatabaseAdapterFactory
 		switch ($name)
 		{
 			case 'mysqli':
-				return new RubtsovAV_RestDatabaseExporter_Server_DatabaseAdapter_Mysqli($params);
+				return new RubtsovAV_RemoteDatabaseBackup_Server_DatabaseAdapter_Mysqli($params);
 		}
 	}
 
@@ -108,39 +108,39 @@ class RubtsovAV_RestDatabaseExporter_Server_DatabaseAdapterFactory
 		return $availableAdapters;
 	}
 }
-class RubtsovAV_RestDatabaseExporter_Server_Exception_Router_RouterException extends RubtsovAV_RestDatabaseExporter_Server_Exception_Exception
+class RubtsovAV_RemoteDatabaseBackup_Server_Exception_Router_RouterException extends RubtsovAV_RemoteDatabaseBackup_Server_Exception_Exception
 {
     public function __construct($responseMessage, $responseCode, Exception $previosly = null)
     {
         parent::__construct($responseMessage, $responseCode, $previosly);
     }
 }
-class RubtsovAV_RestDatabaseExporter_Server_Exception_Router_NotFoundException extends RubtsovAV_RestDatabaseExporter_Server_Exception_Router_RouterException
+class RubtsovAV_RemoteDatabaseBackup_Server_Exception_Router_NotFoundException extends RubtsovAV_RemoteDatabaseBackup_Server_Exception_Router_RouterException
 {
     public function __construct(Exception $previosly = null)
     {
         parent::__construct('Not Found', 404, $previosly);
     }
 }
-class RubtsovAV_RestDatabaseExporter_Server_Exception_Exception extends Exception
+class RubtsovAV_RemoteDatabaseBackup_Server_Exception_Exception extends Exception
 {
 
 }
-class RubtsovAV_RestDatabaseExporter_Server_Exception_DatabaseAdapter_DatabaseAdapter extends RubtsovAV_RestDatabaseExporter_Server_Exception_Exception
+class RubtsovAV_RemoteDatabaseBackup_Server_Exception_DatabaseAdapter_DatabaseAdapter extends RubtsovAV_RemoteDatabaseBackup_Server_Exception_Exception
 {
     public function __construct($message = '', $code = 0, Exception $previosly = null)
     {
         parent::__construct($message, $code, $previosly);
     }
 }
-class RubtsovAV_RestDatabaseExporter_Server_Exception_DatabaseAdapter_AdapterNotAvailable extends RubtsovAV_RestDatabaseExporter_Server_Exception_Exception
+class RubtsovAV_RemoteDatabaseBackup_Server_Exception_DatabaseAdapter_AdapterNotAvailable extends RubtsovAV_RemoteDatabaseBackup_Server_Exception_Exception
 {
     public function __construct($adapterName, Exception $previosly = null)
     {
         parent::__construct("adapter '$adapterName' not available", 0, $previosly);
     }
 }
-interface RubtsovAV_RestDatabaseExporter_Server_DatabaseAdapter_AdapterInterface
+interface RubtsovAV_RemoteDatabaseBackup_Server_DatabaseAdapter_AdapterInterface
 {
     public function getDatabaseMetadata();
     public function getTablesMetadata();
@@ -152,7 +152,7 @@ interface RubtsovAV_RestDatabaseExporter_Server_DatabaseAdapter_AdapterInterface
     public function exportTriggers();
     public function exportRoutines();
 }
-class RubtsovAV_RestDatabaseExporter_Server_DatabaseAdapter_Mysqli implements RubtsovAV_RestDatabaseExporter_Server_DatabaseAdapter_AdapterInterface
+class RubtsovAV_RemoteDatabaseBackup_Server_DatabaseAdapter_Mysqli implements RubtsovAV_RemoteDatabaseBackup_Server_DatabaseAdapter_AdapterInterface
 {
     // Same as mysqldump
     const MAXLINESIZE = 1000000;
@@ -745,5 +745,5 @@ class RubtsovAV_RestDatabaseExporter_Server_DatabaseAdapter_Mysqli implements Ru
 }
 ini_set('display_errors', false);
 
-$router = new RubtsovAV_RestDatabaseExporter_Server_Router();
+$router = new RubtsovAV_RemoteDatabaseBackup_Server_Router();
 echo $router->route($_POST);

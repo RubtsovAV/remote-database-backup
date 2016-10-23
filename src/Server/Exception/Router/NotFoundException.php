@@ -1,6 +1,6 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Server\Exception\Router;
+namespace RubtsovAV\RemoteDatabaseBackup\Server\Exception\Router;
 
 class NotFoundException extends RouterException
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Client;
+namespace RubtsovAV\RemoteDatabaseBackup\Client;
 
-use RubtsovAV\RestDatabaseExporter\Client\Exception\InvalidResponseException;
+use RubtsovAV\RemoteDatabaseBackup\Client\Exception\InvalidResponseException;
 use GuzzleHttp\Client as HttpClient;
 
 class Client

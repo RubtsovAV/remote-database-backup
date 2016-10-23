@@ -1,6 +1,6 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Server\Exception;
+namespace RubtsovAV\RemoteDatabaseBackup\Server\Exception;
 
 class Exception extends \Exception
 {

@@ -1,5 +1,5 @@
 {
-    "name": "rubtsovav/rest-database-exporter",
+    "name": "rubtsovav/remote-database-backup",
     "description": "",
     "type": "tempalte",
     "authors": [
@@ -12,13 +12,13 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4" : {
-            "RubtsovAV\\RestDatabaseExporter\\": "src/"
+            "RubtsovAV\\RemoteDatabaseBackup\\": "src/"
         }
     },
 
     "autoload-dev":{
         "psr-4" : {
-            "RubtsovAV\\RestDatabaseExporter\\Test\\": "test/suites"
+            "RubtsovAV\\RemoteDatabaseBackup\\Test\\": "test/suites"
         }
     },
 

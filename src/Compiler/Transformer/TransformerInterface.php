@@ -1,6 +1,6 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Compiler\Transformer;
+namespace RubtsovAV\RemoteDatabaseBackup\Compiler\Transformer;
 
 interface TransformerInterface
 {

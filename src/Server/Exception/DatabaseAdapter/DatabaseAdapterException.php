@@ -1,8 +1,8 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Server\Exception\DatabaseAdapter;
+namespace RubtsovAV\RemoteDatabaseBackup\Server\Exception\DatabaseAdapter;
 
-use RubtsovAV\RestDatabaseExporter\Server\Exception\Exception;
+use RubtsovAV\RemoteDatabaseBackup\Server\Exception\Exception;
 
 class DatabaseAdapter extends Exception
 {

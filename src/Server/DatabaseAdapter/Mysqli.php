@@ -1,6 +1,6 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Server\DatabaseAdapter;
+namespace RubtsovAV\RemoteDatabaseBackup\Server\DatabaseAdapter;
 
 class Mysqli implements AdapterInterface
 {

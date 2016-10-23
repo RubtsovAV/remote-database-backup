@@ -1,10 +1,10 @@
 <?php
 
-namespace RubtsovAV\RestDatabaseExporter\Server;
+namespace RubtsovAV\RemoteDatabaseBackup\Server;
 
-use RubtsovAV\RestDatabaseExporter\Server\DatabaseAdapterFactory;
-use RubtsovAV\RestDatabaseExporter\Server\Exception\Router\RouterException;
-use RubtsovAV\RestDatabaseExporter\Server\Exception\Router\NotFoundException;
+use RubtsovAV\RemoteDatabaseBackup\Server\DatabaseAdapterFactory;
+use RubtsovAV\RemoteDatabaseBackup\Server\Exception\Router\RouterException;
+use RubtsovAV\RemoteDatabaseBackup\Server\Exception\Router\NotFoundException;
 use Exception;
 
 class Router

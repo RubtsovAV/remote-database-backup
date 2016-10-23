@@ -10,7 +10,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 docker_compose()
 {
-	docker-compose -p rubtsovav/rest-database-export#test -f $DIR/docker-compose.yml $@
+	docker-compose -p rubtsovav/remote-database-backup#test -f $DIR/docker-compose.yml $@
 }
 
 mysql_available()
