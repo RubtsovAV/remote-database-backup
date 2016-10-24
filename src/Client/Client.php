@@ -148,8 +148,8 @@ class Client
         }
 
         $contentType = $response->getHeaderLine('Content-Type');
-        list($contentType, $charset) = explode(';', $contentType, 2);
-        $contentType = trim($contentType);
+        $contentType = explode(';', $contentType);
+        $contentType = trim($contentType[0]);
         switch ($contentType) {
             case 'text/plain':
             case 'application/json':
