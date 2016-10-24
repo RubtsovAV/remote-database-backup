@@ -86,7 +86,7 @@ class Mysqli implements AdapterInterface
         $sql = 'SELECT SCHEMA_NAME as db_name, ' .
                 'DEFAULT_CHARACTER_SET_NAME as default_character_set_name, ' .
                 'DEFAULT_COLLATION_NAME as default_collation_name ' .
-                "FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = 'rest_database_exporter'";
+                "FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = '{$this->config['db_name']}'";
         $result = $this->db->query($sql);
         $row = $result->fetch_assoc();
         $result->close();
