@@ -56,7 +56,7 @@ class Client
     public function export($output, $params = [])
     {
         $this->exportHeader($output);
-        if ($params['add-drop-database']) {
+        if (isset($params['add-drop-database']) && $params['add-drop-database']) {
             $this->exportCreateDatabase($output);
         }
         $this->exportTables($output);
