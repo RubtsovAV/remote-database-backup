@@ -53,10 +53,12 @@ class Client
         return $this->httpClient;
     }
 
-    public function export($output)
+    public function export($output, $params = [])
     {
         $this->exportHeader($output);
-        $this->exportCreateDatabase($output);
+        if ($params['add-drop-database']) {
+            $this->exportCreateDatabase($output);
+        }
         $this->exportTables($output);
         $this->exportViews($output);
         $this->exportTriggers($output);

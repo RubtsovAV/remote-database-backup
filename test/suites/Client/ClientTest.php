@@ -76,7 +76,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $expect = shell_exec($this->getResourceFilePath('bin/join.sh'));
 
-        $this->client->export($this->output);
+        $this->client->export($this->output, [
+            'add-drop-database' => true,
+        ]);
         rewind($this->output);
         $result = stream_get_contents($this->output);
 
