@@ -23,6 +23,7 @@ class Client
         $this->httpClient = new HttpClient([
             'connect_timeout'  => 10,
             'timeout'  => 60,
+            'expect' => false,
         ]);
 
         $this->successResponseMark = $this->generateSuccessResponseMark();
