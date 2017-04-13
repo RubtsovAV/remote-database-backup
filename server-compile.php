@@ -11,7 +11,11 @@ require_once 'vendor/autoload.php';
 $compiler = new Compiler();
 $compiler->addTransformer(new Transformer\NamespaceToUnderscore());
 
-$compiler->addDir('src/Server', ['src/Server/init.php']);
+$compiler->addFile('src/Server/Exception/Exception.php');
+$compiler->addDir('src/Server', $exclude = [
+	'src/Server/Exception/Exception.php', 
+	'src/Server/init.php']
+);
 $compiler->addFile('src/Server/init.php');
 
 file_put_contents($outputFilepath, $compiler->compile());

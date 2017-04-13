@@ -1,4 +1,8 @@
 <?php
+class RubtsovAV_RemoteDatabaseBackup_Server_Exception_Exception extends Exception
+{
+
+}
 class RubtsovAV_RemoteDatabaseBackup_Server_Router
 {
     public function route($requestData)
@@ -30,11 +34,11 @@ class RubtsovAV_RemoteDatabaseBackup_Server_Router
         if (is_array($response)) {
             header('Content-Type: application/json');
             $response = json_encode($response);
-        } 
+        }
 
         if (isset($requestData['response_mark'])) {
             $response .= $requestData['response_mark'];
-        }        
+        }
         return $response;
     }
 
@@ -74,39 +78,38 @@ class RubtsovAV_RemoteDatabaseBackup_Server_Router
 }
 class RubtsovAV_RemoteDatabaseBackup_Server_DatabaseAdapterFactory
 {
-	public function createAdapter($name = null, $params = array())
-	{
-		if (!$name) {
-			$name = $this->getAvailableAdapters();
-			$name = array_shift($name);
-		}
+    public function createAdapter($name = null, $params = array())
+    {
+        if (!$name) {
+            $name = $this->getAvailableAdapters();
+            $name = array_shift($name);
+        }
 
-		$name = strtolower($name);
-		if (!$this->adapterIsAvailable($name)) {
-			throw new Exception("adapter '$name' is not available");
-		}
-		
-		switch ($name)
-		{
-			case 'mysqli':
-				return new RubtsovAV_RemoteDatabaseBackup_Server_DatabaseAdapter_Mysqli($params);
-		}
-	}
+        $name = strtolower($name);
+        if (!$this->adapterIsAvailable($name)) {
+            throw new Exception("adapter '$name' is not available");
+        }
+        
+        switch ($name) {
+            case 'mysqli':
+                return new RubtsovAV_RemoteDatabaseBackup_Server_DatabaseAdapter_Mysqli($params);
+        }
+    }
 
-	public function adapterIsAvailable($name)
-	{
-		return in_array($name, $this->getAvailableAdapters());
-	}
+    public function adapterIsAvailable($name)
+    {
+        return in_array($name, $this->getAvailableAdapters());
+    }
 
-	public function getAvailableAdapters()
-	{
-		$availableAdapters = array();
-		if (function_exists('mysqli_connect')) {
-			$availableAdapters[] = 'mysqli';
-		}
+    public function getAvailableAdapters()
+    {
+        $availableAdapters = array();
+        if (function_exists('mysqli_connect')) {
+            $availableAdapters[] = 'mysqli';
+        }
 
-		return $availableAdapters;
-	}
+        return $availableAdapters;
+    }
 }
 class RubtsovAV_RemoteDatabaseBackup_Server_Exception_Router_RouterException extends RubtsovAV_RemoteDatabaseBackup_Server_Exception_Exception
 {
@@ -121,10 +124,6 @@ class RubtsovAV_RemoteDatabaseBackup_Server_Exception_Router_NotFoundException e
     {
         parent::__construct('Not Found', 404, $previosly);
     }
-}
-class RubtsovAV_RemoteDatabaseBackup_Server_Exception_Exception extends Exception
-{
-
 }
 class RubtsovAV_RemoteDatabaseBackup_Server_Exception_DatabaseAdapter_DatabaseAdapter extends RubtsovAV_RemoteDatabaseBackup_Server_Exception_Exception
 {
@@ -236,7 +235,7 @@ class RubtsovAV_RemoteDatabaseBackup_Server_DatabaseAdapter_Mysqli implements Ru
         $sql = 'SELECT SCHEMA_NAME as db_name, ' .
                 'DEFAULT_CHARACTER_SET_NAME as default_character_set_name, ' .
                 'DEFAULT_COLLATION_NAME as default_collation_name ' .
-                "FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = 'rest_database_exporter'";
+                "FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = '{$this->config['db_name']}'";
         $result = $this->db->query($sql);
         $row = $result->fetch_assoc();
         $result->close();
