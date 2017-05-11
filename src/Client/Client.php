@@ -3,6 +3,7 @@
 namespace RubtsovAV\RemoteDatabaseBackup\Client;
 
 use RubtsovAV\RemoteDatabaseBackup\Client\Exception\InvalidResponseException;
+use RubtsovAV\RemoteDatabaseBackup\Client\Exception\DatabaseErrorException;
 use GuzzleHttp\Client as HttpClient;
 
 class Client
@@ -143,6 +144,21 @@ class Client
 
     private function assertResponse($response)
     {
+        $contentType = $response->getHeaderLine('Content-Type');
+        $contentType = explode(';', $contentType);
+        $contentType = trim($contentType[0]);
+
+        if ($response->getStatusCode() != 200 && $contentType == 'application/json') {
+            $responseJson = json_decode($response->getBody() . '', true);
+            if (isset($responseJson['error'])) {
+                throw new DatabaseErrorException(
+                    $response,
+                    (string) $responseJson['error']['message'],
+                    (int) $responseJson['error']['code']
+                );
+            }
+        }
+
         if ($response->getStatusCode() != 200) {
             throw new InvalidResponseException(
                 $response,
@@ -150,9 +166,6 @@ class Client
             );
         }
 
-        $contentType = $response->getHeaderLine('Content-Type');
-        $contentType = explode(';', $contentType);
-        $contentType = trim($contentType[0]);
         switch ($contentType) {
             case 'text/plain':
             case 'application/json':
